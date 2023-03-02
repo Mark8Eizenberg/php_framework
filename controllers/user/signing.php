@@ -1,7 +1,7 @@
 <?php
 
 use Core\App;
-use Core\Authentification;
+use Core\Authentication;
 use Core\Validator;
 
 $errors = [];
@@ -19,7 +19,7 @@ if(! Validator::string($password, 5, 225))
     $errors['password'] = "Password has uncorrect format";
 }
 
-$user = App::resolve(Authentification::class)->getUser($email, $password);
+$user = App::resolve(Authentication::class)->getUser($email, $password);
 
 if(! $user){
     $errors['global'] = "Wrong email or password";
@@ -32,7 +32,7 @@ if(! empty($errors)){
     ]);
 }
 
-App::resolve(Authentification::class)->authorizeUser($user);
+App::resolve(Authentication::class)->authorizeUser($user);
 
 $_SESSION['name'] = $user['name'];
 App::resolve(Monolog\Logger::class)->info("User {$user['name']} with {$email} enter in system in: ".date("Y-m-d H:i:s"));
