@@ -26,6 +26,7 @@ if(! $user){
 }
 
 if(! empty($errors)){
+    App::resolve(Monolog\Logger::class)->warning("Error with email: {$email}, error: ".implode("|", $errors));
     return view('user/login.view.php', [
         'errors' => $errors
     ]);
@@ -34,5 +35,5 @@ if(! empty($errors)){
 App::resolve(Authentification::class)->authorizeUser($user);
 
 $_SESSION['name'] = $user['name'];
-
+App::resolve(Monolog\Logger::class)->info("User {$user['name']} with {$email} enter in system in: ".date("Y-m-d H:i:s"));
 header('location: /', true, 303);

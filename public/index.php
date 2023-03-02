@@ -1,5 +1,8 @@
 <?php
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 const BASE_PATH = __DIR__."/../";
 
 session_start();
@@ -11,7 +14,8 @@ spl_autoload_register(function($class){
     require base_path("{$class}.php");
 });
 
-require base_path('views/bootstrap.php');
+require base_path("vendor/autoload.php");
+require base_path("bootstrap.php");
 
 $router = new \Core\Router();
 
@@ -23,7 +27,6 @@ $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
     if(! in_array($uri, ['/login', '/register']))
     {
         $uri = '/login';
-        //header('location: /login', true, \Core\Response::FORBIDDEN);
     }
 }, [&$uri]);
 
