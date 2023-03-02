@@ -5,9 +5,9 @@ use Core\Database;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
+$user = \Core\Authentification::getCurrentUser();
 
 $errors = [];
-
 
 $text = $_POST['body'];
 
@@ -25,12 +25,11 @@ if (!empty($errors)) {
     );
 }
 
-
 $db->query(
     "INSERT INTO demo.notes(body, user_id) values (:body, :userId)",
     [
         'body' => $text,
-        'userId' => 1
+        'userId' => $user['id']
     ]
 );
 

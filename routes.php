@@ -16,5 +16,10 @@ $router->get('/notes/create', "/controllers/notes/create.php");
 $router->post('/notes/create', "/controllers/notes/store.php");
 $router->get('/notes', "/controllers/notes/index.php");
 
-$router->get('/register', "/controllers/registration/create.php");
-$router->post('/register', "/controllers/registration/store.php");
+$router->get('/register', "/controllers/user/create.php");
+$router->post('/register', "/controllers/user/store.php");
+
+$router->get('/login', "/controllers/user/login.php");
+$router->post('/login', "/controllers/user/logining.php");
+
+$router->get('/logout', "/controllers/user/logout.php");

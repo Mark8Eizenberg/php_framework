@@ -33,6 +33,6 @@ $navs = [
             </li>
         <?php endforeach; ?>
         <li class="mr-1 plase-self-end">
-            <a class="bg-blue-500 rounded-t inline-block py-2 px-4 text-white hover:bg-blue-800 font-semibold" href="/register">login</a>
+            <a class="bg-red-500 rounded-t inline-block py-2 px-4 text-white hover:bg-red-800 font-semibold" href="/logout">Exit</a>
         </li>
 </ul>

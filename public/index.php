@@ -19,6 +19,13 @@ require base_path('routes.php');
 $uri = parse_url($_SERVER["REQUEST_URI"])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-//dd($_GET);
+\Core\App::resolve(\Core\Authentification::class)->isAuthorized(function(&$uri){
+    if(! in_array($uri, ['/login', '/register']))
+    {
+        $uri = '/login';
+        //header('location: /login', true, \Core\Response::FORBIDDEN);
+    }
+}, [&$uri]);
+
 
 $router->route($uri, $method);

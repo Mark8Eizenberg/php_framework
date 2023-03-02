@@ -5,9 +5,8 @@ use Core\Database;
 use Core\Response;
 use Core\Validator;
 
-const USER_ID = 1;
-
 $db = App::resolve(Database::class);
+$user = \Core\Authentification::getCurrentUser();
 
 $errors = [];
 
@@ -27,7 +26,7 @@ $note = $db->query('select * from notes where id = :id', [
     'id' => $id,
 ])->findOrFaild();
 
-authorize($note['user_id'] == USER_ID, Response::NOT_FOUND);
+authorize($note['user_id'] == $user['id'], Response::NOT_FOUND);
 
 if (!empty($errors)) {
     return view(
