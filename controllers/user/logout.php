@@ -2,6 +2,6 @@
 
 use \Core\App;
 
-App::resolve(\Core\Authentification::class)->unauthorizeUser($user);
+App::resolve(\Core\Authentication::class)->unauthorizeUser();
 
 header('location: /login', true, 303);

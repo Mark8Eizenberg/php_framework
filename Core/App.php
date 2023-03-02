@@ -4,14 +4,14 @@ namespace Core;
 
 class App{
 
-    protected static \Core\Container $container;
+    protected static Container $container;
 
     public static function setContainer($container)
     {
         static::$container = $container;
     }
 
-    public static function getContainer() : \Core\Container
+    public static function getContainer() : Container
     {
         return static::$container;
     }

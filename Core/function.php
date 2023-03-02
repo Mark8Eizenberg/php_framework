@@ -3,16 +3,21 @@
 use Core\Response;
 use Core\Router;
 
-function base_path($path)
+/**
+ * Get full path for file
+ * @param string $path path to file relative to BASE_PATH
+ * @return string full path to file
+ */
+function base_path(string $path) : string
 {
     return BASE_PATH . $path;
 }
 
 /**
+ * Dump and die
  * @param mixed $value any value
- * @return never
  */
-function dd($value): never
+function dd($value): void
 {
     echo '<pre>';
     var_dump($value);
@@ -32,6 +37,11 @@ function urlIs(string $url): bool
     return $_url === $url;
 }
 
+/**
+ * On user unauthorized stuff
+ * @param bool $conditional conditional for check is user authorized
+ * @param int $status returning response code
+ */
 function authorize($conditional = false, $status = Response::FORBIDDEN)
 {
     if (!$conditional) {
@@ -39,8 +49,12 @@ function authorize($conditional = false, $status = Response::FORBIDDEN)
     }
 }
 
-
-function view($path, $attributes = [])
+/**
+ * Render View by path
+ * @param string $path path to view
+ * @param array $attributes array with values what required for view
+ */
+function view(string $path, $attributes = [])
 {
     extract($attributes);
     require base_path('/views/'.$path);

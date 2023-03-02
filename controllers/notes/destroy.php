@@ -6,7 +6,7 @@ use Core\Router;
 use Core\App;
 
 $db = App::resolve(Database::class);
-$user = \Core\Authentification::getCurrentUser();
+$user = \Core\Authentication::getCurrentUser();
 
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 $id = filter_var($id, FILTER_VALIDATE_INT);

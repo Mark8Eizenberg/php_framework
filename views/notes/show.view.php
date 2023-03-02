@@ -1,8 +1,9 @@
 <?php view("partials/header.php") ?>
 <?php view("partials/nav.php") ?>
-<?php view("partials/head.php", ['heading' => $heading]) ?>
+<?php view("partials/head.php") ?>
 
 <div class="max-w py-4 rounded shadow-lg">
+    <a href="/notes" class="text-blue-500">Go back...</a>
     <div class="px-4 py-4">
         <p class="text-gray-700 text-base">
             <?= htmlspecialchars($note['body']) ?>

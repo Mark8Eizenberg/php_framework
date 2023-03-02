@@ -2,10 +2,12 @@
 
 namespace Core;
 
-class Authentification
+use Exception;
+
+class Authentication
 {
 
-    private \Core\Database $db;
+    private Database $db;
 
     public function __construct($db)
     {
@@ -17,11 +19,13 @@ class Authentification
         return password_hash($password, PASSWORD_DEFAULT);
     }
 
+    /**
+     * @throws Exception database must be included first with constructor
+     */
     public function getUser($email, $password)
     {
-        if(! isset($this->db))
-        {
-            throw new \Exception("You need initialize database first");
+        if (!isset($this->db)) {
+            throw new Exception("You need initialize database first");
         }
 
         $query = <<<QUERY
@@ -32,13 +36,13 @@ class Authentification
 
         $user = $this->db->query($query, [
             'email' => $email
-            ])->find();
-        
-        if(! $user){
+        ])->find();
+
+        if (!$user) {
             return false;
         }
 
-        if(! password_verify($password, $user['password'])){
+        if (!password_verify($password, $user['password'])) {
             return false;
         }
 
@@ -48,15 +52,13 @@ class Authentification
 
     public function addUser($name, $email, $password)
     {
-        if(! isset($this->db))
-        {
-            throw new \Exception("You need initialize database first");
+        if (!isset($this->db)) {
+            throw new Exception("You need initialize database first");
         }
 
         $user = $this->getUser($email, $password);
 
-        if($user)
-        {
+        if ($user) {
             return false;
         }
 
@@ -75,23 +77,23 @@ class Authentification
 
         return true;
     }
-    
+
     public static function authorizeUser($user)
     {
         $_SESSION['user'] = $user;
     }
 
-    public static function unauthorizeUser($user)
+    public static function unauthorizeUser()
     {
         unset($_SESSION['user']);
     }
 
-    public static function isAuthorized($onUnauthorize = null, $args = [], $user = null)
+    public static function isAuthorized($onUnauthorized = null, $args = [], $user = null)
     {
-        if(! $user){
-            if(!isset($_SESSION['user'])){
-                if(is_callable($onUnauthorize)){
-                    return call_user_func_array($onUnauthorize, $args);
+        if (!$user) {
+            if (!isset($_SESSION['user'])) {
+                if (is_callable($onUnauthorized)) {
+                    return call_user_func_array($onUnauthorized, $args);
                 }
             }
 
@@ -101,7 +103,7 @@ class Authentification
 
     public static function getCurrentUser()
     {
-        if(isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
         }
 

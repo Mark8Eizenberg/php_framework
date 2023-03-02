@@ -6,7 +6,7 @@ use Core\Response;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
-$user = \Core\Authentification::getCurrentUser();
+$user = \Core\Authentication::getCurrentUser();
 
 $errors = [];
 

@@ -23,7 +23,7 @@ require base_path('routes.php');
 $uri = parse_url($_SERVER["REQUEST_URI"])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-\Core\App::resolve(\Core\Authentification::class)->isAuthorized(function(&$uri){
+\Core\App::resolve(\Core\Authentication::class)->isAuthorized(function(&$uri){
     if(! in_array($uri, ['/login', '/register']))
     {
         $uri = '/login';

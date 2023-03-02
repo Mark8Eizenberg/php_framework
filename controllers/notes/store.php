@@ -5,7 +5,7 @@ use Core\Database;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
-$user = \Core\Authentification::getCurrentUser();
+$user = \Core\Authentication::getCurrentUser();
 
 $errors = [];
 

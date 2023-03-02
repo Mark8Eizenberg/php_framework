@@ -38,7 +38,7 @@ if(! empty($errors))
 //check if user already exist
     //if yes, redirect to login
     //if no, create user
-$auth = App::resolve(\Core\Authentification::class);
+$auth = App::resolve(\Core\Authentication::class);
 
 $isUser =  $auth->getUser($email, $password);
 

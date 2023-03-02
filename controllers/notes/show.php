@@ -5,7 +5,7 @@ use Core\Database;
 use Core\Response;
 
 $db = App::resolve(Database::class);
-$user = \Core\Authentification::getCurrentUser();
+$user = \Core\Authentication::getCurrentUser();
 
 $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 

@@ -20,6 +20,6 @@ $router->get('/register', "/controllers/user/create.php");
 $router->post('/register', "/controllers/user/store.php");
 
 $router->get('/login', "/controllers/user/login.php");
-$router->post('/login', "/controllers/user/logining.php");
+$router->post('/login', "/controllers/user/signing.php");
 
 $router->get('/logout', "/controllers/user/logout.php");

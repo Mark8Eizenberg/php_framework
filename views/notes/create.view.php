@@ -1,8 +1,9 @@
 <?php view("partials/header.php") ?>
 <?php view("partials/nav.php") ?>
-<?php view("partials/head.php", ['heading' => $heading]) ?>
+<?php view("partials/head.php") ?>
 
 <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <a href="/notes" class="text-blue-500">Go back...</a>
     <form method="post">
         <div class="relative mb-3 xl:w-96" data-te-input-wrapper-init>
             <textarea 

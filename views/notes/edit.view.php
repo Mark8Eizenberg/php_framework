@@ -1,8 +1,9 @@
 <?php view("partials/header.php") ?>
 <?php view("partials/nav.php") ?>
-<?php view("partials/head.php", ['heading' => $heading]) ?>
+<?php view("partials/head.php") ?>
 
 <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <a href="/note?id=<?=$note['id']?>" class="text-blue-500">Go back...</a>
     <form method="post" action="/note">
         <input type="hidden" name="_method" value="PATCH"/>
         <input type="hidden" name="id" value="<?= $note['id']?>"/>

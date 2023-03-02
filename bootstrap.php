@@ -3,7 +3,7 @@
 use Core\App;
 use Core\Container;
 use Core\Database;
-use Core\Authentification;
+use Core\Authentication;
 
 $container = new Container;
 
@@ -12,8 +12,8 @@ $container->bind(Database::class, function () {
     return new Database($config['database'], 'stoner', '1234');
 });
 
-$container->bind(Authentification::class, function () {
-    return new Authentification(App::getContainer()->resolve(Database::class));
+$container->bind(Authentication::class, function () {
+    return new Authentication(App::getContainer()->resolve(Database::class));
 });
 
 $container->bind(Monolog\Logger::class, function () {
