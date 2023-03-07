@@ -2,23 +2,6 @@
 
 namespace Core;
 
-// include_once base_path("Core/function.php");
-
-// ["path" => $uri] = parse_url($_SERVER["REQUEST_URI"]);
-
-// $routes = require base_path('routes.php');
-
-// function routesToController($uri, $routes)
-// {
-//     if (array_key_exists($uri, $routes)) {
-//         require base_path($routes[$uri]);
-//     } else {
-//         abort(404);
-//     }
-// }
-
-// routesToController($uri, $routes);
-
 class Router
 {
     const GET = 'GET';
