@@ -32,7 +32,7 @@ class Authentication
             Select u.name, u.email, u.id, u.password 
                 from demo.users as u 
                 where u.email = :email
-        QUERY;
+            QUERY;
 
         $user = $this->db->query($query, [
             'email' => $email
@@ -50,7 +50,7 @@ class Authentication
         return $user;
     }
 
-    public function addUser($name, $email, $password)
+    public function addUser($name, $email, $password): bool
     {
         if (!isset($this->db)) {
             throw new Exception("You need initialize database first");
@@ -86,19 +86,6 @@ class Authentication
     public static function unauthorizeUser()
     {
         unset($_SESSION['user']);
-    }
-
-    public static function isAuthorized($onUnauthorized = null, $args = [], $user = null)
-    {
-        if (!$user) {
-            if (!isset($_SESSION['user'])) {
-                if (is_callable($onUnauthorized)) {
-                    return call_user_func_array($onUnauthorized, $args);
-                }
-            }
-
-            $user = $_SESSION['user'];
-        }
     }
 
     public static function getCurrentUser()

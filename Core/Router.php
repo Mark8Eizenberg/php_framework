@@ -19,6 +19,8 @@ namespace Core;
 
 // routesToController($uri, $routes);
 
+use Core\Middleware\Middleware;
+
 class Router
 {
     const GET = 'GET';
@@ -27,46 +29,60 @@ class Router
     const DELETE = 'DELETE';
     const PATCH = 'PATCH';
 
-    protected $routes = [];
+    protected array $routes = [];
 
-    protected function addRoute($uri, $controller, $method)
+    protected function addRoute($uri, $controller, $method): Router
     {
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
-            'method' => $method
+            'method' => $method,
+            'middleware' => null
         ];
+
+        return $this;
     }
 
-    public function get($uri, $controller)
+    public function get($uri, $controller) : Router
     {
-        $this->addRoute($uri, $controller, Router::GET);
+        return $this->addRoute($uri, $controller, Router::GET);
     }
 
-    public function post($uri, $controller)
+    public function post($uri, $controller): Router
     {
-        $this->addRoute($uri, $controller, Router::POST);
+        return $this->addRoute($uri, $controller, Router::POST);
     }
 
-    public function put($uri, $controller)
+    public function put($uri, $controller): Router
     {
-        $this->addRoute($uri, $controller, Router::PUT);
+        return $this->addRoute($uri, $controller, Router::PUT);
     }
 
-    public function delete($uri, $controller)
+    public function delete($uri, $controller): Router
     {
-        $this->addRoute($uri, $controller, Router::DELETE);
+        return $this->addRoute($uri, $controller, Router::DELETE);
     }
 
-    public function patch($uri, $controller)
+    public function patch($uri, $controller): Router
     {
-        $this->addRoute($uri, $controller, Router::PATCH);
+        return $this->addRoute($uri, $controller, Router::PATCH);
+    }
+
+    public function only($key)
+    {
+        $lastRouteIndex = count($this->routes) - 1;
+        $this->routes[$lastRouteIndex]['middleware'] = $key;
+        return $this;
     }
 
     public function route($uri, $method)
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] == $method) {
+                //Apply the middleware
+                if($route['middleware']) {
+                    Middleware::resolve($route['middleware']);
+                }
                 return require base_path($route['controller']);
             }
         }
