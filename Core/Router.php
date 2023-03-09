@@ -2,23 +2,6 @@
 
 namespace Core;
 
-// include_once base_path("Core/function.php");
-
-// ["path" => $uri] = parse_url($_SERVER["REQUEST_URI"]);
-
-// $routes = require base_path('routes.php');
-
-// function routesToController($uri, $routes)
-// {
-//     if (array_key_exists($uri, $routes)) {
-//         require base_path($routes[$uri]);
-//     } else {
-//         abort(404);
-//     }
-// }
-
-// routesToController($uri, $routes);
-
 use Core\Middleware\Middleware;
 
 class Router
@@ -79,10 +62,6 @@ class Router
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] == $method) {
-                //Apply the middleware
-                if($route['middleware']) {
-                    Middleware::resolve($route['middleware']);
-                }
                 return require base_path($route['controller']);
             }
         }
